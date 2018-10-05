@@ -5,3 +5,25 @@
 #lomake {
   margin-top: 50px;
 }
+
+h1 {
+  text-align: center;
+}
+
+#tekstikenttä {
+  width: 50%;
+
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+ul li input:checked {
+  
+}

@@ -9,14 +9,14 @@ function lisääTehtävä() {
   //haetaan lisättävän tehtävän nimi tekstikentästä
   var lomake = document.forms["myForm"]["todoNimi"].value;
   //haetaan HTML tägi, johon tehtävä lisätään
-  var lisäys = document.getElementById("teksti");
+  var lisäys = document.getElementById("tehtävät");
   //Luodaan jokaiselle tehtävälle yksilöllinen id, jotta siihen voi myöhemmin viitata
   var tunnus = "objekti";
   var kirjain = i.toString();
   var kokotunnus = tunnus.concat(kirjain);
 
   //lisätään objekti sivulle checkboxin kera, jolla tehtävä saadaan poistettua kun se on valmis
-  lisäys.innerHTML += "<input  type = \"checkbox\" id=\"objekti\" onclick=\"poista()\">" + "\t" + lomake + "<br>";
+  lisäys.innerHTML += "<li><input  type = \"checkbox\" id=\"objekti\" onclick=\"poista()\">" + "\t" + lomake + "</li><br>";
   //vaihdetaan tehtävälle id, joka luotiin aiemmin
   document.getElementById("objekti").id = kokotunnus;
   //korotetaan i muuttujaa yhdellä, jotta seuraavan tehtävän id ei ole sama

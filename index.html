@@ -15,16 +15,20 @@
 
 <body>
 <div class="container">
-
+  <div class="jumbotron">
+    <h1>To do -lista</h1>
+  </div>
   <form name="myForm" id="lomake">
     <div class="form-group">
-      <label for="todoNimi">Mitä pitää muistaa?</label>
-      <input name="todoNimi" class="form-control">
+      <input name="todoNimi" id="tekstikenttä" class="form-control">
     </div>
     <button type="button" name="button" class="btn btn-success" id="lisäänappi" onclick="lisääTehtävä()">Lisää</button>
   </form>
   <hr>
-  <p id=teksti></p>
+
+  <ul id="tehtävät">
+    
+  </ul>
 </div>
 
 </body>
