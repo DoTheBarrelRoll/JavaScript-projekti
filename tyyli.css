@@ -1,6 +1,18 @@
 /*
 * Miikka Niemeläinen ja Teemu Rossi, 2018, All rights reserved
 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(79, 225, 233);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
 
 #lomake {
   margin-top: 50px;
@@ -15,15 +27,32 @@ h1 {
 
 }
 
+#Keskeneräisetotsikko {
+  font-size: 20px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+li a {
+  display: block;
+}
+
+li button {
+  margin-right: 20px;
+}
+
 ul {
   margin: 0px;
   padding: 0px;
+  border-right: solid gray 1px;
 }
 
 ul li {
   list-style-type: none;
+  width: 90%;
 }
 
 ul li input:checked {
-  
+
 }
