@@ -16,7 +16,7 @@ function lisääTehtävä() {
   var kokotunnus = tunnus.concat(kirjain);
 
   //lisätään objekti sivulle checkboxin kera, jolla tehtävä saadaan poistettua kun se on valmis
-  lisäys.innerHTML += "<li class=\"list-group-item\"><button class=\"btn btn-primary\" id=\"objekti\" onclick=\"poista()\">Done</button>" + "\t" + lomake + "</li><br>";
+  lisäys.innerHTML += "<li class=\"list-group-item\">" + lomake + "</li><br>";
   //vaihdetaan tehtävälle id, joka luotiin aiemmin
   document.getElementById("objekti").id += kokotunnus;
   //korotetaan i muuttujaa yhdellä, jotta seuraavan tehtävän id ei ole sama

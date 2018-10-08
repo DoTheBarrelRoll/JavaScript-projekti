@@ -1,7 +1,7 @@
 /*
 * Miikka Niemeläinen ja Teemu Rossi, 2018, All rights reserved
 */
-* {
+ul li {
   box-sizing: border-box;
 }
 
@@ -52,6 +52,8 @@ ul li {
   list-style-type: none;
   width: 90%;
 }
+
+
 
 ul li input:checked {
 
