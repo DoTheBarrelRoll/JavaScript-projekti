@@ -21,6 +21,8 @@ function lisääTehtävä() {
   document.getElementById("objekti").id = kokotunnus;
   //korotetaan i muuttujaa yhdellä, jotta seuraavan tehtävän id ei ole sama
   i++;
+  //Tyhjennetään tekstikenttä
+  document.forms["myForm"]["todoNimi"].value = "";
 
 }
 
