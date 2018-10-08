@@ -16,15 +16,24 @@ function lisääTehtävä() {
   var kokotunnus = tunnus.concat(kirjain);
 
   //lisätään objekti sivulle checkboxin kera, jolla tehtävä saadaan poistettua kun se on valmis
-  lisäys.innerHTML += "<li class=\"list-group-item\">" + lomake + "</li><br>";
+  lisäys.innerHTML += "<li class=\"list-group-item\"><button class=\"btn btn-primary btn-sm\" id=\"objekti\" onclick=\"poista(this)\">Done</button>" + "\t" + lomake + "</li><br>";
   //vaihdetaan tehtävälle id, joka luotiin aiemmin
-  document.getElementById("objekti").id += kokotunnus;
+  document.getElementById("objekti").id = kokotunnus;
   //korotetaan i muuttujaa yhdellä, jotta seuraavan tehtävän id ei ole sama
   i++;
 
 }
 
+
 //Tällä funktiolla poistetaan valmiit tehtävät todo listasta
-function poista() {
-  //TODO tee funktio :D
+function poista(btn) {
+  var task = btn.parentNode;
+  var ul = task.parentNode;
+  ul.removeChild(task);
+  var done = document.getElementById("valmiit");
+  done.appendChild(task);
+  task.style.color = "gray";
+  task.style.textDecoration = "line-through";
+  task.childNodes[0].style.display = "none";
+
 }
