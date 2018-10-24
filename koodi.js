@@ -42,8 +42,12 @@ function lisääTehtävä() {
 
 //tällä funktiolla saadaan valmiit tehtävät piiloon ja takaisin näkyviin
 function nakyvyys(){
+//haetaan elementit joiden sisältöä muutetaan
   var x = document.getElementById("valmiit");
   var y = document.getElementById("poistanappi");
+  // if lauseen avulla looppi jossa tarkistetaan mikä display style on käytössä
+  // ja muutetaan se vastakkaiseksi
+  // samalla myös muutetaan näppäimen nimi (y variablen arvo) sen mukaan mitä näppäin sillä hetkellä tekee
   if(x.style.display == "none"){
     x.style.display = "block";
     y.innerHTML = "Piilota valmiit"
@@ -62,6 +66,7 @@ function poista(btn) {
   var ul = task.parentNode;
     //samalla tuodaan näkyviin näppäin
     //jolla voidaan piilottaa tehdyt tehtävät lista
+    //koska tämän ei tarvitse olla näkyvissä jos yhtäkään tehtävää ei ole vielä luotu
   var x = document.getElementById('poistanappi').style.display = "block";
 
   ul.removeChild(task);

@@ -80,4 +80,5 @@ ul li input:checked {
 #poistanappi {
   position: absolute;
   right: 15px;
+  display: none;
 }
