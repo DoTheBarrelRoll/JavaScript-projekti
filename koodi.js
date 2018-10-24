@@ -10,6 +10,7 @@ function lisääTehtävä() {
 
 
   //haetaan lisättävän tehtävän nimi tekstikentästä
+  //samalla tarkistellaan että on annettu jokin tehtävä
   var lomake = document.forms["myForm"]["todoNimi"].value;
   if (lomake== ""){
     alert("Anna jokin tehtävä!");
