@@ -6,8 +6,16 @@ var i = 0;
 
 //funktio, jolla lisätään esineitä todo listalle
 function lisääTehtävä() {
+  //tarkistetaan että on annettu jotain sisältöä tehtävään
+
+
   //haetaan lisättävän tehtävän nimi tekstikentästä
   var lomake = document.forms["myForm"]["todoNimi"].value;
+  if (lomake== ""){
+    alert("Anna jokin tehtävä!");
+
+  }
+  else {
   //haetaan HTML tägi, johon tehtävä lisätään
   var lisäys = document.getElementById("kesken");
   //Luodaan jokaiselle tehtävälle yksilöllinen id, jotta siihen voi myöhemmin viitata
@@ -23,8 +31,11 @@ function lisääTehtävä() {
   i++;
   //Tyhjennetään tekstikenttä
   document.forms["myForm"]["todoNimi"].value = "";
+}
 
 }
+
+
 
 
 //Tällä funktiolla poistetaan valmiit tehtävät todo listasta
