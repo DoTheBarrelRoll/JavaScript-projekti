@@ -66,19 +66,33 @@ function nakyvyys(){
 
 }
 
+
+
 //Tällä funktiolla poistetaan valmiit tehtävät todo listasta
 
 function poista(btn) {
+
+  //Haetaan napin isänode (li)
   var task = btn.parentNode;
+
+  //Haetaan li:n isänode (ul)
   var ul = task.parentNode;
+
     //samalla tuodaan näkyviin näppäin
     //jolla voidaan piilottaa tehdyt tehtävät lista
     //koska tämän ei tarvitse olla näkyvissä jos yhtäkään tehtävää ei ole vielä luotu
   var x = document.getElementById('poistanappi').style.display = "block";
 
+  //poistetaan Keskeneräiset listasta tehtävä, jonka nappia painetaan
   ul.removeChild(task);
+
+  //haetaan valmiit tehtävä lista ja tallennetaan se muuttujaan
   var done = document.getElementById("valmiit");
+
+  //Lisätään valmiit tehtävät listaan Keskeneräiset listasta poistettu tehtävä
   done.appendChild(task);
+
+  //Muotoillaan valmis tehtävä ja piilotetaan nappi
   task.style.color = "gray";
   task.style.textDecoration = "line-through";
   task.childNodes[5].style.display = "none";
