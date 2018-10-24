@@ -6,16 +6,16 @@ var i = 0;
 
 //funktio, jolla lisätään esineitä todo listalle
 function lisääTehtävä() {
-  //tarkistetaan että on annettu jotain sisältöä tehtävään
-
 
   //haetaan lisättävän tehtävän nimi tekstikentästä
   //samalla tarkistellaan että on annettu jokin tehtävä
   var lomake = document.forms["myForm"]["todoNimi"].value;
   var kuvaus = document.forms["myForm"]["todoKuvaus"].value;
+  //tarkistetaan että on annettu jotain sisältöä tehtävään ja jos ei, annetaan alert+highlightataan kohdan
   if (lomake== ""){
     alert("Anna jokin tehtävä!");
-
+    var x = document.getElementById("tekstikenttä");
+    x.style.borderColor = "red";
   }
   else {
   //haetaan HTML tägi, johon tehtävä lisätään
@@ -31,7 +31,7 @@ function lisääTehtävä() {
                           </div>
                         </li>
                         `
-  
+
   //Tyhjennetään tekstikenttä
   document.forms["myForm"]["todoNimi"].value = "";
   document.forms["myForm"]["todoKuvaus"].value = "";
