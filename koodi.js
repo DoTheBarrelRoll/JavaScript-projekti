@@ -37,8 +37,20 @@ function lisääTehtävä() {
 }
 
 
+//tällä funktiolla saadaan valmiit tehtävät piiloon ja takaisin näkyviin
+function nakyvyys(){
+  var x = document.getElementById("valmiit");
+  var y = document.getElementById("poistanappi");
+  if(x.style.display == "none"){
+    x.style.display = "block";
+    y.innerHTML = "Piilota valmiit"
+  }else{
+    x.style.display = "none";
+    y.innerHTML = "Näytä valmiit"
 
+  }
 
+}
 
 //Tällä funktiolla poistetaan valmiit tehtävät todo listasta
 
