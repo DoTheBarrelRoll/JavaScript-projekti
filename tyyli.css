@@ -14,7 +14,6 @@ html {
 }
 
 .container {
-  background-color: rgb(170, 170, 170);
   height: 100%;
 }
 
@@ -31,7 +30,7 @@ h1 {
   text-align: center;
 }
 
-#tekstikenttä {
+#tekstikenttä, #tekstikenttä2 {
   width: 50%;
 
 }
@@ -49,6 +48,18 @@ li a {
 
 li button {
   margin-right: 20px;
+}
+
+.card-title {
+  font-size: 30px;
+}
+
+.card-body {
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  border-color: rgb(204, 204, 204);
 }
 
 ul {

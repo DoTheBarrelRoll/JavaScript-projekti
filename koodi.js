@@ -12,6 +12,7 @@ function lisääTehtävä() {
   //haetaan lisättävän tehtävän nimi tekstikentästä
   //samalla tarkistellaan että on annettu jokin tehtävä
   var lomake = document.forms["myForm"]["todoNimi"].value;
+  var kuvaus = document.forms["myForm"]["todoKuvaus"].value;
   if (lomake== ""){
     alert("Anna jokin tehtävä!");
 
@@ -19,19 +20,21 @@ function lisääTehtävä() {
   else {
   //haetaan HTML tägi, johon tehtävä lisätään
   var lisäys = document.getElementById("kesken");
-  //Luodaan jokaiselle tehtävälle yksilöllinen id, jotta siihen voi myöhemmin viitata
-  var tunnus = "objekti";
-  var kirjain = i.toString();
-  var kokotunnus = tunnus.concat(kirjain);
+
 
   //lisätään objekti sivulle checkboxin kera, jolla tehtävä saadaan poistettua kun se on valmis
-  lisäys.innerHTML += "<li class=\"list-group-item\"><button class=\"btn btn-primary btn-sm\" id=\"objekti\" onclick=\"poista(this)\">Done</button>" + "\t" + lomake + "</li><br>";
-  //vaihdetaan tehtävälle id, joka luotiin aiemmin
-  document.getElementById("objekti").id = kokotunnus;
-  //korotetaan i muuttujaa yhdellä, jotta seuraavan tehtävän id ei ole sama
-  i++;
+  lisäys.innerHTML += `<li>
+                          <div class="card-body">
+                            <h5 class="card-title">` + lomake + `</h5>
+                            <p class="card-text">` + kuvaus + `</p>
+                            <button class="btn btn-primary btn-sm" id="objekti" onclick="poista(this)">Done</button>
+                          </div>
+                        </li>
+                        `
+  
   //Tyhjennetään tekstikenttä
   document.forms["myForm"]["todoNimi"].value = "";
+  document.forms["myForm"]["todoKuvaus"].value = "";
 }
 
 }
@@ -66,6 +69,6 @@ function poista(btn) {
   done.appendChild(task);
   task.style.color = "gray";
   task.style.textDecoration = "line-through";
-  task.childNodes[0].style.display = "none";
+  task.childNodes[5].style.display = "none";
 
 }
