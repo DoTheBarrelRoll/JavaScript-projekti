@@ -5,8 +5,17 @@ ul li {
   box-sizing: border-box;
 }
 
-body {
-  background-color: rgb(79, 225, 233);
+html, body {
+  height: 100%;
+}
+
+html {
+
+}
+
+.container {
+  background-color: rgb(170, 170, 170);
+  height: 100%;
 }
 
 a {
@@ -53,13 +62,11 @@ ul li {
 }
 
 
-
 ul li input:checked {
 
 }
 
 #poistanappi {
   position: absolute;
-  right: 0px;
-  display: none;
+  right: 15px;
 }
