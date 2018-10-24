@@ -1,9 +1,5 @@
 //Miikka Niemeläinen ja Teemu Rossi, 2018, All rights reserved
 
-
-//Alustetaan muuttuja i, jolla saadaan yksilöllinen id jokaiselle todo listan objektille
-var i = 0;
-
 //funktio, jolla lisätään esineitä todo listalle
 function lisääTehtävä() {
   //tarkistetaan että on annettu jotain sisältöä tehtävään
@@ -22,7 +18,8 @@ function lisääTehtävä() {
   var lisäys = document.getElementById("kesken");
 
 
-  //lisätään objekti sivulle checkboxin kera, jolla tehtävä saadaan poistettua kun se on valmis
+  //lisätään objekti sivulle bootstrapin Card muotoilulla ja napilla, jolla
+  //tehtävä saadaan siirrettyä valmiisiin
   lisäys.innerHTML += `<li>
                           <div class="card-body">
                             <h5 class="card-title">` + lomake + `</h5>
@@ -31,8 +28,8 @@ function lisääTehtävä() {
                           </div>
                         </li>
                         `
-  
-  //Tyhjennetään tekstikenttä
+
+  //Tyhjennetään tekstikentät
   document.forms["myForm"]["todoNimi"].value = "";
   document.forms["myForm"]["todoKuvaus"].value = "";
 }
@@ -59,7 +56,7 @@ function nakyvyys(){
 
 }
 
-//Tällä funktiolla poistetaan valmiit tehtävät todo listasta
+//Tällä funktiolla siirretään valmiit tehtävät toiseen tauluun
 
 function poista(btn) {
   var task = btn.parentNode;
