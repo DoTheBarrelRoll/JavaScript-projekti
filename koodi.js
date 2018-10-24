@@ -8,7 +8,7 @@ var i = 0;
 function normaalivari() {
 
   var reuna = document.getElementById("tekstikenttä");
-  reuna.style.borderColor = "rgb(206, 212, 218)";
+  reuna.style.borderColor = "";
 }
 
 //funktio, jolla lisätään esineitä todo listalle
