@@ -39,10 +39,16 @@ function lisääTehtävä() {
 
 
 
+
 //Tällä funktiolla poistetaan valmiit tehtävät todo listasta
+
 function poista(btn) {
   var task = btn.parentNode;
   var ul = task.parentNode;
+    //samalla tuodaan näkyviin näppäin
+    //jolla voidaan piilottaa tehdyt tehtävät lista
+  var x = document.getElementById('poistanappi').style.display = "block";
+
   ul.removeChild(task);
   var done = document.getElementById("valmiit");
   done.appendChild(task);
