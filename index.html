@@ -13,7 +13,7 @@
   </script>
 </head>
 
-<body>
+<body onload="lataus()">
 <div class="container">
   <div class="jumbotron">
     <h1>To do -lista</h1>
@@ -29,10 +29,11 @@
   </form>
   <div class="row">
     <div class="col-sm">
-      <button type="button" name="button" class="btn btn-success" id="lisäänappi" onclick="lisääTehtävä()">Lisää</button>
+      <button type="button" name="button" class="btn btn-success" id="lisäänappi" onclick="lisääTehtävä(), tallennus()">Lisää</button>
     </div>
     <div class="col-sm">
-      <button type="button" name="button" class="btn btn-danger" id="poistanappi" onclick="nakyvyys()">Piilota valmiit</button>
+      <button type="button" name="button" class="btn btn-primary" id="poistanappi" onclick="nakyvyys()">Piilota valmiit</button>
+      <button type="button" name="button" class="btn btn-danger" id="tyhjennänappi" onclick="poistavalmiit()">Poista valmiit</button>
     </div>
   </div>
   <hr>
