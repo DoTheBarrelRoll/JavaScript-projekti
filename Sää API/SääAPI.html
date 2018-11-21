@@ -1,0 +1,207 @@
+<HTML>
+  <head>
+    <meta charset="utf-8">
+  </head>
+ <style type="text/css">
+
+	body{
+	font-family: Trebuchet MS;
+	}
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 15px;
+            border-collapse: collapse;
+            width: 700px;
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 4px;
+            font-family: Verdana;
+            font-size: 12px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+        th, td {
+            border: 1px solid #ddd;
+        }
+        td {
+            height: 40px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
+
+</style>
+<script>
+
+
+<!-- JavaScript goes here -->
+// EX1
+function firstButton(){
+
+  var text = '{ "employees" : [' +
+  '{ "firstName":"John" , "lastName":"Doe" },' +
+  '{ "firstName":"Anna" , "lastName":"Smith" },' +
+  '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+
+}
+
+// Create a for loop
+function thirdButton(){
+
+
+} // end for
+
+// EX2: If the CORS-issue is preventing the data to be loaded, we can just use local variable
+// Online at: https://api.myjson.com/bins/18bfgz (MS)
+function loadJSONdata(){
+
+}
+
+
+// If CORS-issue is fine (IE seems to work), we can fetch the data using AJAX
+// Define a variable which can be used globally
+var jsonObj;
+
+
+function loadJSONDoc() {
+
+    var url = "https://api.myjson.com/bins/18bfgz";
+
+}
+
+function loadJSONDocWithParse() {
+
+    var url = "https://api.myjson.com/bins/18bfgz";
+
+}
+
+function weather() {
+
+  var kaupunki = document.getElementById("city").value;
+  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + kaupunki + "&units=metric&mode=XML&APPID=ff64c247a136f706923d1ee0d55d71e2";
+
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send()
+
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var text = xmlhttp.responseText;
+      jsonObj = JSON.parse(text);
+      var tulokset = document.getElementById("weatherdata");
+      tulokset.innerHTML = `<table id="säätaulu">
+                              <tbody>
+                                <tr>
+                                  <td>`+ kaupunki + `
+                                  <td>Lämpötila</td>
+                                  <td>Kuvaus</td>
+                                  <td>Tuuli</td>
+                                  <td>Ikoni</td>
+                                </tr>
+                                <tr>
+                                  <td>Maa: ` + jsonObj.sys.country + `</td>
+                                  <td>` + jsonObj.main.temp + `°C</td>
+                                  <td>`+ jsonObj.weather[0].main + `</td>
+                                  <td>` + jsonObj.wind.speed + ` m/s </td>
+                                  <td><img src=\"` + "http://openweathermap.org/img/w/" + jsonObj.weather[0].icon + ".png" + `\"></td>
+                                </tr>
+                              </tbody>
+                            </table>`;
+    } else {
+      document.getElementById("weatherdata").innerHTML = `<table id="säätaulu">
+                            <tbody>
+                              <tr>
+                                <td>Kaupunkia ei löytynyt, yritä uudelleen</td>
+                              </tr>
+                            </tbody>
+                          </table>`;
+    }
+  }
+
+
+}
+
+function weatherByQuery() {
+  var kaupunki = document.getElementById("citysearch").value;
+  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + kaupunki + "&units=metric&mode=XML&APPID=ff64c247a136f706923d1ee0d55d71e2";
+
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send()
+
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var text = xmlhttp.responseText;
+      jsonObj = JSON.parse(text);
+      var tulokset = document.getElementById("weatherdata");
+        tulokset.innerHTML = `<table id="säätaulu">
+                              <tbody>
+                                <tr>
+                                  <td>`+ kaupunki + `</td>
+                                  <td>Lämpötila</td>
+                                  <td>Kuvaus</td>
+                                  <td>Tuuli</td>
+                                  <td>Ikoni</td>
+                                </tr>
+                                <tr>
+                                  <td>Maa: ` + jsonObj.sys.country + `</td>
+                                  <td>` + jsonObj.main.temp + `°C</td>
+                                  <td>`+ jsonObj.weather[0].main + `</td>
+                                  <td>` + jsonObj.wind.speed + ` m/s </td>
+                                  <td><img src=\"` + "http://openweathermap.org/img/w/" + jsonObj.weather[0].icon + ".png" + `\"></td>
+                                </tr>
+                              </tbody>
+                            </table>`;
+    } else {
+      document.getElementById("weatherdata").innerHTML = `<table id="säätaulu">
+                            <tbody>
+                              <tr>
+                                <td>Kaupunkia ei löytynyt, yritä uudelleen</td>
+                              </tr>
+                            </tbody>
+                          </table>`;
+    }
+  }
+}
+
+
+</script>
+
+
+
+
+
+  <h2>Exercise 3: Real Life Challenge: OpenWeatherMap API - Return by next session for extra points!</h2>
+
+<p>OpenWeatherMap is a well known weather data provider online. It offers an API which allow developers to fetch data about weather. The <a href="https://openweathermap.org/api">documentation can be found here</a>.
+Your task is to write a Weather APP, which will display the weather information based on the users wishes. <b>Notice, that you will need to sign up (its free) to get the API key, which allows you to use the service.</b></p>
+
+<p>Sample call to the REST API could be like this: <a href="http://api.openweathermap.org/data/2.5/weather?q=Helsinki&units=metric&mode=JSON&APPID=ff64c247a136f706923d1ee0d55d71e2">http://api.openweathermap.org/data/2.5/weather?q=Helsinki&units=metric&mode=JSON&APPID=ff64c247a136f706923d1ee0d55d71e2">
+</a>. Click to see the response.</p>
+
+<li>First develop the app to display raw weather information (Temperature, Clouds, Humidity, Icon) on one spesific city, when the button is clicked. <button>Get data</button> </li>
+<li>When you achieve this, then parse the data and output it to div</li>
+<li>When you have achieved this, implement an onchange-event on the pulldown menu, which will allow the user to select which city's data will be shown from a list of cities</li>
+<li>When you have completed this, add functionality to an input field, in which the user can write search queries which are sent to the OpenWeatherMap API and the system will run a search query which is retuned to your app.</li>
+  <p>Select a city from the list:
+  <select name="mySelect" id="city" onchange="weather()">
+    <option value="Helsinki">Helsinki</option>
+    <option value="Stockholm">Stockholm</option>
+    <option value="Rome">Rome</option>
+    <option value="New York">New York</option>
+  </select>
+<br/>
+Or type in a search query: <input id="citysearch"></input><button id="search" onclick="weatherByQuery()">Search</button>
+<div id="weatherdata">Weatherdata goes here.</div>
+
+  <br>
+  <br>
+
+</body>
+</html>
