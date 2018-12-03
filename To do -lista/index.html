@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Miikka Niemeläinen ja Teemu Rossi, 2018, All rights reserved -->
+<html>
+
+<head>
+  <title>To do -lista</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="tyyli.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="koodi.js"></script>
+
+  </script>
+</head>
+
+<body onload="lataus()">
+<div class="container">
+  <div class="jumbotron">
+    <h1>To do -lista</h1>
+  </div>
+  <form name="myForm" id="lomake">
+    <div class="form-group">
+      Tehtävän otsikko
+      <input type="text" name="todoNimi" id="tekstikenttä" class="form-control" placeholder="esim. Tuo maitoa" onfocus="normaalivari()">
+      <br>
+      Tehtävän kuvaus
+      <input type="text" name="todoKuvaus" id="tekstikenttä2" class="form-control" placeholder="esim. Ei rasvatonta">
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-sm">
+      <button type="button" name="button" class="btn btn-success" id="lisäänappi" onclick="lisääTehtävä(), tallennus()">Lisää</button>
+    </div>
+    <div class="col-sm">
+      <button type="button" name="button" class="btn btn-primary" id="poistanappi" onclick="nakyvyys()">Piilota valmiit</button>
+      <button type="button" name="button" class="btn btn-danger" id="tyhjennänappi" onclick="poistavalmiit()">Poista valmiit</button>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h2 id="Keskeneräisetotsikko">Keskeneräiset tehtävät</h2>
+      <ul class="list-group" id="kesken">
+
+      </ul>
+    </div>
+    <div class="col-sm-6" id="done">
+      <h2 id="Keskeneräisetotsikko">Valmiit tehtävät</h2>
+      <ul class="list-group" id="valmiit">
+
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+
+</body>
+
+</html>
