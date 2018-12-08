@@ -10,42 +10,82 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="jquery.js"></script>
   <script src="koodi.js"></script>
 
   <title>Juna API</title>
 </head>
 
-<body>
-  <div class="container-fluid">
-    <h1 id="otsikko">Hello world!</h1>
+<body onload="lataaAsemat()">
+  <div class="container">
+    <h1 id="otsikko"></h1>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Perunoita</th>
-          <th>Lanttuja</th>
-          <th>Parsoja</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Perunoita</td>
-          <td>Lanttuja</td>
-          <td>Parsoja</td>
-        </tr>
-        <tr>
-          <td>Perunoita</td>
-          <td>Lanttuja</td>
-          <td>Parsoja</td>
-        </tr>
-        <tr>
-          <td>Perunoita</td>
-          <td>Lanttuja</td>
-          <td>Parsoja</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <form>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label>Valitse lähtöasema</label>
+            <select class="form-control mr-2 ml-2 asemat" name="asemat" id="lähtö" class="asemat">
+              <option value="asd">Esimerkki</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label>Valitse pääteasema</label>
+            <select class="form-control mr-2 ml-2 asemat" name="asemat" id="maali" class="asemat">
+              <option value="asd">Esimerkki</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-success mb-10" name="button" onclick="lataaJunat()">Etsi junat</button>
+
+
+
+  </div>
+  </form>
+
+  <h2 id="error">Junia ei löytynyt, kokeile muita asemia</h2>
+
+  <div class="row taulut">
+    <div class="col-6" id ="lähijunat">
+      <h2>Lähijunat</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Juna</th>
+            <th>Raide</th>
+            <th>Aika</th>
+          </tr>
+        </thead>
+        <tbody id="taulukeho1">
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6" id ="kaukojunat">
+      <h2 >Kaukojunat</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Juna</th>
+            <th>Raide</th>
+            <th>Aika</th>
+          </tr>
+        </thead>
+        <tbody id="taulukeho2">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
   </div>
 
 
