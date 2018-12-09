@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" type="text/css" href="tyyli.css">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="tyyli.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
@@ -17,8 +19,13 @@
 </head>
 
 <body onload="lataaAsemat()">
+
   <div class="container">
-    <h1 id="otsikko"></h1>
+    <div class="bgimage"></div>
+    <div class="jumbotron">
+      <h1 id="otsikko">VR ja HSL junahaku</h1>
+    </div>
+
 
 
     <form>
@@ -42,8 +49,11 @@
         </div>
       </div>
 
-      <button type="button" class="btn btn-success mb-10" name="button" onclick="lataaJunat()">Etsi junat</button>
-
+      <button type="button" class="btn btn-lg btn-success btn-block mb-10" name="button" onclick="lataaJunat()">Etsi junat</button>
+      <hr>
+      <div id="loading">
+        <span class="fas fa-spinner fa-10x fa-pulse"></span>
+      </div>
 
 
   </div>
@@ -51,40 +61,29 @@
 
   <h2 id="error">Junia ei löytynyt, kokeile muita asemia</h2>
 
-  <div class="row taulut">
-    <div class="col-6" id ="lähijunat">
-      <h2>Lähijunat</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Juna</th>
-            <th>Raide</th>
-            <th>Aika</th>
-          </tr>
-        </thead>
-        <tbody id="taulukeho1">
 
-        </tbody>
-      </table>
-    </div>
-    <div class="col-6" id ="kaukojunat">
-      <h2 >Kaukojunat</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Juna</th>
-            <th>Raide</th>
-            <th>Aika</th>
-          </tr>
-        </thead>
-        <tbody id="taulukeho2">
+  <div id="junat">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Juna</th>
+          <th>Raide</th>
+          <th>Lähtee</th>
+          <th>Perillä</th>
+        </tr>
+      </thead>
+      <tbody id="taulukeho1">
 
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
 
 
+  <footer class="fixed-bottom">
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://github.com/DoTheBarrelRoll/JavaScript-projekti/tree/master/Juna%20API">Miikka Niemeläinen & Teemu Rossi</a>
+    </div>
+  </footer>
 
   </div>
 
