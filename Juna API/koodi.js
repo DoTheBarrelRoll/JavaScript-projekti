@@ -7,7 +7,7 @@ function lataaAsemat() {
   $('.taulut').hide();
   $('#lähijunat').hide();
   $('#kaukojunat').hide();
-
+  $('#spinner').css("display","none");
 
 
   $.ajax({
@@ -58,7 +58,9 @@ function lataaJunat(){
         }
         console.log(iterator+"-----"+iterator2);
         if(iterator>iterator2){
+          $('#spinner').show();
           lataaLähiJunat();
+          $('#spinner').hide();
         }
         else if(iterator2>iterator){
           lataaKaukoJunat();
@@ -158,20 +160,31 @@ function lataaKaukoJunat() {
 
 
         for (var i = 0; i < result.length; i++)
+
           for (var j = 0; j < result[i].timeTableRows.length; j++) {
 
             if (result[i].timeTableRows[j].stationShortCode == lähtöasema && result[i].timeTableRows[j].type == "DEPARTURE" && result[i].trainCategory=="Long-distance") {
               var saapumisaika = new Date(result[i].timeTableRows[j].scheduledTime);
+              if(result[i].trainType=="IC")
+              {
+                var trainType = "Intercity";
+              }
+              else if(result[i].trainType=="S"){
+                var trainType = "Pendolino";
+              }
+              else if(result[i].trainType=="PYO"){
+                var trainType = "Yöjuna";
+              }
               var peruna = `
                           <tr>
-                            <td>` + result[i].commuterLineID + `</td>
+                            <td>` + trainType + `</td>
                             <td>` + result[i].timeTableRows[j].commercialTrack + `</td>
                             <td>` + saapumisaika.toUTCString().slice(17, 22) + `</td>
                             <td>
                           `;
 
             }
-            if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].commuterLineID == "Long-distance") {
+            if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].trainCategory== "Long-distance") {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
               console.log(perilläaika.toUTCString().slice(17, 22));
