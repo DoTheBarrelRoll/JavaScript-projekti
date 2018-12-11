@@ -4,10 +4,10 @@ let aika = (new Date(Date.now() - tzoffset)).toISOString();
 
 function lataaAsemat() {
   $('#error').hide();
-  $('.taulut').hide();
+  $('#junat').hide();
   $('#lähijunat').hide();
   $('#kaukojunat').hide();
-  $('#spinner').css("display","none");
+  $('#spinny').hide();
 
 
   $.ajax({
@@ -23,10 +23,12 @@ function lataaAsemat() {
 
 
 }
-function lataaJunat(){
+
+function lataaJunat() {
   $('#error').hide();
   $('#taulukeho1').html('');
   $('#taulukeho2').html('');
+  $('#spinny').show();
   var iterator = 0;
   var iterator2 = 0;
 
@@ -35,37 +37,41 @@ function lataaJunat(){
   var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=1000";
 
   $.ajax({
-      url: url,
-      dataType: 'json',
-      success: function(result) {
-        if (result.queryString != null) {
-          $('#error').show();
+    url: url,
+    dataType: 'json',
+    success: function(result) {
+      if (result.queryString != null) {
+        $('#junat').hide();
+        $('#error').show();
+        $('#spinny').hide();
 
+      }
+
+
+
+
+
+
+      for (var i = 0; i < result.length; i++) {
+        if (result[i].trainCategory == "Commuter") {
+          iterator++;
+        } else {
+          iterator2++;
         }
+      }
+      console.log(iterator + "-----" + iterator2);
+      if (iterator > iterator2) {
 
-        $('.taulut').show();
+        lataaLähiJunat();
+        $('#spinny').hide();
+      } else if (iterator2 > iterator) {
+        lataaKaukoJunat();
+        $('#spinny').hide();
+      }
+    }
+  })
+}
 
-
-
-
-        for (var i = 0; i < result.length; i++){
-            if(result[i].trainCategory=="Commuter"){
-              iterator++;
-            }
-            else{
-              iterator2++;
-            }
-        }
-        console.log(iterator+"-----"+iterator2);
-        if(iterator>iterator2){
-          $('#spinner').show();
-          lataaLähiJunat();
-          $('#spinner').hide();
-        }
-        else if(iterator2>iterator){
-          lataaKaukoJunat();
-        }
-}})}
 function lataaLähiJunat() {
 
   $('#error').hide();
@@ -87,12 +93,12 @@ function lataaLähiJunat() {
 
         }
 
-        $('.taulut').show();
+        $('#junat').show();
 
 
 
 
-        for (var i = 0; i < result.length; i++)
+        for (var i = 0; i < 20;) {
           for (var j = 0; j < result[i].timeTableRows.length; j++) {
 
             if (result[i].timeTableRows[j].stationShortCode == lähtöasema && result[i].timeTableRows[j].type == "DEPARTURE" && result[i].commuterLineID != "") {
@@ -109,7 +115,6 @@ function lataaLähiJunat() {
             if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].commuterLineID != "") {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
-              console.log(perilläaika.toUTCString().slice(17, 22));
               $('#taulukeho1').append(peruna + perilläaika.toUTCString().slice(17, 22) + `</td>
                       </tr>
                     `);
@@ -117,22 +122,23 @@ function lataaLähiJunat() {
             }
 
           }
+          i++;
+        }
+
 
       }
-
-
     }
 
 
 
 
 
-
-)
+  )
 
 
 
 }
+
 function lataaKaukoJunat() {
 
   $('#error').hide();
@@ -163,16 +169,13 @@ function lataaKaukoJunat() {
 
           for (var j = 0; j < result[i].timeTableRows.length; j++) {
 
-            if (result[i].timeTableRows[j].stationShortCode == lähtöasema && result[i].timeTableRows[j].type == "DEPARTURE" && result[i].trainCategory=="Long-distance") {
+            if (result[i].timeTableRows[j].stationShortCode == lähtöasema && result[i].timeTableRows[j].type == "DEPARTURE" && result[i].trainCategory == "Long-distance") {
               var saapumisaika = new Date(result[i].timeTableRows[j].scheduledTime);
-              if(result[i].trainType=="IC")
-              {
+              if (result[i].trainType == "IC") {
                 var trainType = "Intercity";
-              }
-              else if(result[i].trainType=="S"){
+              } else if (result[i].trainType == "S") {
                 var trainType = "Pendolino";
-              }
-              else if(result[i].trainType=="PYO"){
+              } else if (result[i].trainType == "PYO") {
                 var trainType = "Yöjuna";
               }
               var peruna = `
@@ -184,7 +187,7 @@ function lataaKaukoJunat() {
                           `;
 
             }
-            if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].trainCategory== "Long-distance") {
+            if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].trainCategory == "Long-distance") {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
               console.log(perilläaika.toUTCString().slice(17, 22));
@@ -206,7 +209,7 @@ function lataaKaukoJunat() {
 
 
 
-)
+  )
 
 
 
