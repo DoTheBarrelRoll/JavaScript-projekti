@@ -1,30 +1,91 @@
-var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+//Alustetaan muutamat muuttujat myöhempää käyttöä varten
+
+// tzoffset ja aika hakevat tämän hetkisen kellonajan ja sovittavat ne
+// oikeaan aikavyöhykkeeseen
+var tzoffset = (new Date()).getTimezoneOffset() * 60000;
 let aika = (new Date(Date.now() - tzoffset)).toISOString();
+var lähtöasema = "";
+var määränpää = "";
 
-
-function lataaAsemat() {
+// AutoComplete pluginin alustusfunktio
+$(document).ready(function() {
   $('#error').hide();
   $('#junat').hide();
   $('#lähijunat').hide();
   $('#kaukojunat').hide();
   $('#spinny').hide();
 
+  //Asetukset asemaehdotuksille
+  var options = {
 
+    //AutoComplete hakee asemien nimet asemat.json tiedostosta
+    url: "asemat.json",
+    dataType: "JSON",
+
+    getValue: "nimi",
+
+    list: {
+      match: {
+        enabled: true
+      }
+    },
+
+    theme: "square"
+  };
+  // AutoComplete suoritetaan kun teksti muuttu kentässä
+  $("#asema1").easyAutocomplete(options);
+  $("#asema2").easyAutocomplete(options);
+})
+
+// pääfunktio jota käytetään "Etsi junat painikkeessa"
+function inputAsemat() {
+
+  //piilotetaan #junat taulu kokonaan, ettei taulun otsikot jää kummittelemaan
+  $('#junat').hide();
+
+  //haetaan valuet input-kentistä
+  var asema1 = $('#asema1').val();
+  var asema2 = $('#asema2').val();
+
+  // alustetaan globaalit muuttujat "lähtöasema" ja "määränpää", koska muutokset näihin tallentuvat globaalisti alla olevissa toiminnoissa
+  lähtöasema = "";
+  määränpää = "";
+
+  //tässä haetaan asemakoodit json:sta for loopilla, inputissa annetuilla arvoilla esim. Tikkurila arvolla haetaan sen lyhenne asemakoodi
+  //joka sijoitetaan määränpää tai lähtöasema muuttujiin myöhempää käyttöä varten
   $.ajax({
-    url: "https://rata.digitraffic.fi/api/v1/metadata/stations",
+    url: "asemat.json",
     dataType: 'json',
     success: function(result) {
       for (var i = 0; i < result.length; i++) {
-        $('.asemat').append('<option value="' + result[i].stationShortCode + '">' + result[i].stationName + '</option>');
+        if(result[i].nimi == asema1) {
+          lähtöasema = result[i].koodi;
+          console.log(lähtöasema);
+        }
+
+        if(result[i].nimi == asema2) {
+          määränpää = result[i].koodi;
+          console.log(määränpää);
+        }
+
+      }
+      //jos asemat löytyvät, suoritetaan funktio lataaJunat
+      //muuten näytetään virhetxt
+      if(lähtöasema != "" && määränpää != "") {
+        lataaJunat();
+      } else {
+        $('#error').show();
+        $('#junat').hide();
       }
 
     }
   })
 
-
 }
 
+//Funktio, jolla sovellus hakee junat, jotka kulkevat annettujen asemien välillä
 function lataaJunat() {
+  // Tyhjennetään ja piilotetaan taulu ja näytetään latauskuvake
   $('#error').hide();
   $('#taulukeho1').html('');
   $('#taulukeho2').html('');
@@ -32,9 +93,8 @@ function lataaJunat() {
   var iterator = 0;
   var iterator2 = 0;
 
-  var lähtöasema = $('#lähtö').val();
-  var määränpää = $('#maali').val();
-  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=1000";
+  //rakennetaan osoite, josta junat haetaan
+  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=50";
 
   $.ajax({
     url: url,
@@ -59,7 +119,6 @@ function lataaJunat() {
           iterator2++;
         }
       }
-      console.log(iterator + "-----" + iterator2);
       if (iterator > iterator2) {
 
         lataaLähiJunat();
@@ -79,10 +138,7 @@ function lataaLähiJunat() {
   $('#taulukeho2').html('');
   var iterator = 20;
   var iterator2 = 20;
-
-  var lähtöasema = $('#lähtö').val();
-  var määränpää = $('#maali').val();
-  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=1000";
+  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=50";
 
   $.ajax({
       url: url,
@@ -146,10 +202,7 @@ function lataaKaukoJunat() {
   $('#taulukeho2').html('');
   var iterator = 20;
   var iterator2 = 20;
-
-  var lähtöasema = $('#lähtö').val();
-  var määränpää = $('#maali').val();
-  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=1000";
+  var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=50";
 
   $.ajax({
       url: url,
@@ -160,7 +213,7 @@ function lataaKaukoJunat() {
 
         }
 
-        $('.taulut').show();
+        $('#junat').show();
 
 
 
