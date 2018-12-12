@@ -89,7 +89,7 @@ function lataaJunat() {
   $('#error').hide();
   $('#taulukeho1').html('');
   $('#taulukeho2').html('');
-  $('#spinny').show();
+  $('#spinny').fadeIn();
   var iterator = 0;
   var iterator2 = 0;
 
@@ -100,10 +100,11 @@ function lataaJunat() {
     url: url,
     dataType: 'json',
     success: function(result) {
+      //Jos junia ei löydy, näytetään virheviesti
       if (result.queryString != null) {
         $('#junat').hide();
         $('#error').show();
-        $('#spinny').hide();
+        $('#spinny').fadeOut();
 
       }
 
@@ -111,7 +112,8 @@ function lataaJunat() {
 
 
 
-
+      //Lasketaan, kumpia junia on enemmän
+      //Jos lähijunia on enemmän, näytetään ne, saman toisin päin
       for (var i = 0; i < result.length; i++) {
         if (result[i].trainCategory == "Commuter") {
           iterator++;
@@ -122,22 +124,22 @@ function lataaJunat() {
       if (iterator > iterator2) {
 
         lataaLähiJunat();
-        $('#spinny').hide();
+        $('#spinny').fadeOut();
       } else if (iterator2 > iterator) {
         lataaKaukoJunat();
-        $('#spinny').hide();
+        $('#spinny').fadeOut();
       }
     }
   })
 }
 
+//funktio jolla näytetään lähijunat
 function lataaLähiJunat() {
 
   $('#error').hide();
   $('#taulukeho1').html('');
-  $('#taulukeho2').html('');
-  var iterator = 20;
-  var iterator2 = 20;
+
+
   var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=50";
 
   $.ajax({
@@ -148,18 +150,20 @@ function lataaLähiJunat() {
           $('#error').show();
 
         }
-
-        $('#junat').show();
-
-
+        //Liu'utetaan taulu näkyviin, kun kysely on valmis
+        $('#junat').fadeIn(1000);
 
 
+
+        //For loopin avulla käydään läpi ensimmäiset 20 lähijunaa
         for (var i = 0; i < 20;) {
+          //Loopataan junan aikataululista läpi ja etsitään asemat jotka annettiin alussa
           for (var j = 0; j < result[i].timeTableRows.length; j++) {
 
+            //Jos listasta löytyvä asema vastaa lähtöasemaa, tulostetaan sen tiedot tauluun
             if (result[i].timeTableRows[j].stationShortCode == lähtöasema && result[i].timeTableRows[j].type == "DEPARTURE" && result[i].commuterLineID != "") {
               var saapumisaika = new Date(result[i].timeTableRows[j].scheduledTime);
-              var peruna = `
+              var tiedot = `
                           <tr>
                             <td>` + result[i].commuterLineID + `</td>
                             <td>` + result[i].timeTableRows[j].commercialTrack + `</td>
@@ -168,16 +172,19 @@ function lataaLähiJunat() {
                           `;
 
             }
+
+            //Etsitään aikataululistasta myös pääteasema ja tulostetaan sen tidot tauluun
             if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].commuterLineID != "") {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
-              $('#taulukeho1').append(peruna + perilläaika.toUTCString().slice(17, 22) + `</td>
+              $('#taulukeho1').append(tiedot + perilläaika.toUTCString().slice(17, 22) + `</td>
                       </tr>
                     `);
 
             }
 
           }
+          //Nostetaan ensimmäisen for loopin muuttujan i arvoa yhdellä aina, kun sopiva juna löytyy
           i++;
         }
 
@@ -195,13 +202,12 @@ function lataaLähiJunat() {
 
 }
 
+//funktio miltei identtinen lataaLähiJunat kanssa, tällä tulostetaan pitkän matkan junat
 function lataaKaukoJunat() {
 
   $('#error').hide();
   $('#taulukeho1').html('');
-  $('#taulukeho2').html('');
-  var iterator = 20;
-  var iterator2 = 20;
+
   var url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + lähtöasema + "/" + määränpää + "?startDate=" + aika + "&limit=50";
 
   $.ajax({
@@ -213,7 +219,7 @@ function lataaKaukoJunat() {
 
         }
 
-        $('#junat').show();
+        $('#junat').fadeIn();
 
 
 
@@ -231,7 +237,7 @@ function lataaKaukoJunat() {
               } else if (result[i].trainType == "PYO") {
                 var trainType = "Yöjuna";
               }
-              var peruna = `
+              var tiedot = `
                           <tr>
                             <td>` + trainType + `</td>
                             <td>` + result[i].timeTableRows[j].commercialTrack + `</td>
@@ -244,7 +250,7 @@ function lataaKaukoJunat() {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
               console.log(perilläaika.toUTCString().slice(17, 22));
-              $('#taulukeho1').append(peruna + perilläaika.toUTCString().slice(17, 22) + `</td>
+              $('#taulukeho1').append(tiedot + perilläaika.toUTCString().slice(17, 22) + `</td>
                       </tr>
                     `);
 
