@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     //AutoComplete hakee asemien nimet asemat.json tiedostosta
     url: "asemat.json",
-    dataType: "JSON",
+    dataType: "json",
 
     getValue: "nimi",
 
