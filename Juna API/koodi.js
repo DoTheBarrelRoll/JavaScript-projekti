@@ -74,18 +74,37 @@ function inputAsemat() {
       if(lähtöasema != "" && määränpää != "") {
         lataaJunat();
       } else {
-        $('#error').show();
-        $('#junat').hide();
+        korostus();
       }
 
     }
   })
 
 }
+// tehdään virheen tunnistamisen avuksi korostus inputteihin virheen sattuessa
+function korostus(){
+  if(lähtöasema==""&& määränpää!=""){
+    $('asema2').removeAttr('style');
+    $('#asema1').css('border-color', 'red');
+    $('#error').show();
+    $('#junat').hide();
+  }else if(lähtöasema!=""&& määränpää==""){
+      $('#asema1').removeAttr('style');
+      $('#asema2').css('border-color', 'red');
+      $('#error').show();
+      $('#junat').hide();
+  }else{
+    $('#asema1').css('border-color', 'red');
+    $('#asema2').css('border-color', 'red');
+    $('#error').show();
+    $('#junat').hide();
+  }
 
+}
 //Funktio, jolla sovellus hakee junat, jotka kulkevat annettujen asemien välillä
 function lataaJunat() {
-  // Tyhjennetään ja piilotetaan taulu ja näytetään latauskuvake
+  // Tyhjennetään ja piilotetaan taulu ja näytetään latauskuvake sekä poistetaan punaiset reunankorostukset(jos virheitä tullut)
+  $('#asema1,#asema2').removeAttr('style');
   $('#error').hide();
   $('#taulukeho1').html('');
   $('#taulukeho2').html('');
@@ -173,7 +192,7 @@ function lataaLähiJunat() {
 
             }
 
-            //Etsitään aikataululistasta myös pääteasema ja tulostetaan sen tidot tauluun
+            //Etsitään aikataululistasta myös pääteasema ja tulostetaan sen tiedot tauluun
             if (result[i].timeTableRows[j].stationShortCode == määränpää && result[i].timeTableRows[j].type == "ARRIVAL" && result[i].commuterLineID != "") {
 
               var perilläaika = new Date(result[i].timeTableRows[j].scheduledTime);
